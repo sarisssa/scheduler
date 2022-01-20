@@ -11,9 +11,10 @@ import DayList from 'components/DayList';
 import InterviewerListItem from 'components/InterviewerListItem';
 import InterviewerList from 'components/InterviewerList';
 import Appointment from "components/Appointment/index.js";
-import Header from "components/Appointment/Header.js"
-import Empty from "components/Appointment/Empty.js"
-import Show from "components/Appointment/Show.js"
+import Header from "components/Appointment/Header.js";
+import Empty from "components/Appointment/Empty.jsx";
+import Show from "components/Appointment/Show.js";
+import Confirm from "components/Appointment/Confirm.jsx"
 
 
 storiesOf("Button", module)
@@ -155,3 +156,4 @@ storiesOf("InterviewerList", module)
     onEdit={action("onEdit")} 
     onDelete={action('onDelete')} 
     />))
+    .add("Confirm", () => <Confirm message={"Delete the appointment?"} onConfirm={action("onConfirm")} onCancel={action("onCancel")}/>)
