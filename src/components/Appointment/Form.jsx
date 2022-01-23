@@ -1,11 +1,11 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 
 import InterviewerList from "components/InterviewerList";
 import Button from "components/Button";
 
-export default function Form (props) {
-  
-  const {onCancel, interviewers} = props;
+export default function Form(props) {
+
+  const { onCancel, interviewers } = props;
 
   const [name, setName] = useState(props.name || "");
   const [interviewer, setInterviewer] = useState(props.interviewer || null);
@@ -16,12 +16,12 @@ export default function Form (props) {
     setInterviewer(null);
     return;
   };
-  
+
   const cancel = function () {
     reset();
     onCancel();
   }
-  
+
   function validate() {
     if (name === "") {
       setError("Student name cannot be blank");
@@ -32,7 +32,7 @@ export default function Form (props) {
       setError("Please select an interviewer");
       return;
     }
-    
+
     setError("");
     props.onSave(name, interviewer);
   }
@@ -41,18 +41,18 @@ export default function Form (props) {
     <main className="appointment__card appointment__card--create">
       <section className="appointment__card-left">
         <form autoComplete="off" onSubmit={event => event.preventDefault()}>
-          
+
           <input
             className="appointment__create-input text--semi-bold"
             name="name"
             type="text"
-            placeholder="Enter Student Name" 
-            value = {name}
+            placeholder="Enter Student Name"
+            value={name}
             onChange={(event) => setName(event.target.value)}
             data-testid="student-name-input"
           />
           <section className="appointment__validation">{error}</section>
-        <InterviewerList interviewers={interviewers} value={interviewer} onChange={setInterviewer} />
+          <InterviewerList interviewers={interviewers} value={interviewer} onChange={setInterviewer} />
         </form>
       </section>
       <section className="appointment__card-right">
