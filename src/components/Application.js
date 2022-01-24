@@ -42,23 +42,45 @@ export default function Application(props) {
   function bookInterview(id, interview) {
     console.log(id, interview);
 
-    axios.put(`/api/appointments/${id}`, {interview:{...interview}})
-    .then(res =>  {
-      const appointment = {
-        ...state.appointments[id],
-        interview: { ...interview }
-      };
+    return axios.put(`/api/appointments/${id}`, { interview: { ...interview } })
+      .then(res => {
+        const appointment = {
+          ...state.appointments[id],
+          interview: { ...interview }
+        };
 
-      const appointments = {
-        ...state.appointments,
-        [id]: appointment
-      };
+        const appointments = {
+          ...state.appointments,
+          [id]: appointment
+        };
 
-      setState({
-        ...state, 
-        appointments: appointments      
+        setState({
+          ...state,
+          appointments: appointments
+        })
       })
-    })
+  }
+
+  function cancelInterview(id) {
+    console.log('EXECUTED DELETION')
+    return axios.delete(`/api/appointments/${id}`, { interview: null })
+      .then(res => {
+        const appointment = {
+          ...state.appointments[id], // Duplicate state data for the appointment to be deleted
+          interview: null
+        };
+
+        const appointments = {
+          ...state.appointments,  // Duplicate state data for all appointments and insert the appointment for that interview to be deleted
+          [id]: appointment
+        };
+
+        setState({
+          ...state,
+          appointments: appointments
+        })
+
+      })
   }
 
   let dailyAppointments = [];
@@ -78,6 +100,7 @@ export default function Application(props) {
         interview={interview}
         interviewers={dailyInterviewers}
         bookInterview={bookInterview}
+        cancelInterview={cancelInterview}
       />
     )
   });

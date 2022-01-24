@@ -2,23 +2,22 @@ import React from 'react';
 import "components/InterviewerListItem.scss";
 import classNames from "classnames";
 
-
 const InterviewerListItem = (props) => {
-
+    // console.log('props.interviwer---->', props.interviewer)
     const interviewerClass = classNames({
         "interviewers__item--selected": props.selected
     });
 
     return (
-        <l1 className={interviewerClass}
-            onClick={props.setInterviewer}>
+        <li className={interviewerClass} onClick={() => {console.log(props.interviewer); props.setInterviewer(props.interviewer)}}>
+                
             <img
                 className="interviewers__item-image"
                 src={props.avatar}
                 alt={props.name}
             />
             {props.selected && props.name}
-        </l1>
+        </li>
     );
 }
 

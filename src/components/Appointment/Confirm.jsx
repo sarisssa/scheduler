@@ -4,7 +4,7 @@ import Button from "components/Button.js"
 export default function Confirm(props) {
   return (
     <main className="appointment__card appointment__card--confirm">
-      <h1 className="text--semi-bold">{props.message}</h1>
+      <h1 className="text--semi-bold">Are you sure you want to delete?</h1>
       <section className="appointment__actions">
         <Button
           danger
@@ -13,7 +13,7 @@ export default function Confirm(props) {
 
         <Button
           danger
-          onClick={props.onConfirm}
+          onClick={() => props.onConfirm(props.id)}
         >Confirm</Button>
 
       </section>
