@@ -4,11 +4,11 @@ Interview Scheduler is a Single-Page App built in React that allows a user to bo
 
 ## Screenshots
 
-(https://github.com/sarisssa/scheduler/blob/master/docs/scheduler_pic_1.png?raw=true)
+!["Screenshot of Scheduler"](https://github.com/sarisssa/scheduler/blob/master/docs/scheduler_pic_1.png?raw=true)
 
-(https://github.com/sarisssa/scheduler/blob/master/docs/scheduler_pic_2.png?raw=true)
+!["Screenshot of canceling interview"](https://github.com/sarisssa/scheduler/blob/master/docs/scheduler_pic_2.png?raw=true)
 
-(https://github.com/sarisssa/scheduler/blob/master/docs/scheduler_pic_3.png?raw=true)
+!["Screenshot of updated Scheduler](https://github.com/sarisssa/scheduler/blob/master/docs/scheduler_pic_3.png?raw=true)
 
 ## Setup
 
