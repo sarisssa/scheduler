@@ -34,8 +34,32 @@ export default function useApplicationData() {
         })
     }, [])
 
+    function spotsRemaining(state) { 
+        //Access current day and its corresponding object
+        const curDay = state.day; 
+        const currentDayObj = state.days.find(dayObj => dayObj.name === curDay);
+        const currentDayObjIndex = state.days.findIndex(dayObj => dayObj.name === curDay);
+
+        //Access appointments for current day and assess if appointments are free or booked
+        const appointmentList = currentDayObj.appointments;
+        const freeAppointments = appointmentList.filter(apptId => !state.appointments[apptId].interview);
+
+        //New spot count
+        const newSpots = freeAppointments.length;
+
+        //Construct a new slice of state
+        const newState = { ...state }; 
+        newState.days = [...state.days]; 
+        const updatedDay = { ...currentDayObj }; 
+
+        //Inject changes into newState
+        updatedDay.spots = newSpots;
+        newState.days[currentDayObjIndex] = updatedDay;
+
+        return newState;
+    }
+
     function bookInterview(id, interview) {
-        console.log(id, interview);
 
         return axios.put(`/api/appointments/${id}`, { interview: { ...interview } })
             .then(res => {
@@ -49,10 +73,13 @@ export default function useApplicationData() {
                     [id]: appointment
                 };
 
-                setState({
+                const newState = {
                     ...state,
-                    appointments: appointments
-                })
+                    appointments,
+                };
+
+                setState({...spotsRemaining(newState)});
+
             })
     }
 
@@ -69,10 +96,12 @@ export default function useApplicationData() {
                     [id]: appointment
                 };
 
-                setState({
+                const newState = {
                     ...state,
-                    appointments: appointments
-                })
+                    appointments,
+                };
+
+                setState({...spotsRemaining(newState)});
             })
     }
     return { state, setDay, bookInterview, cancelInterview }
