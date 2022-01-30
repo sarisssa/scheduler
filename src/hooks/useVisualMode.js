@@ -6,20 +6,22 @@ export default function useVisualMode(initial, replace) {
 
     const [history, setHistory] = useState([initial]); //Store history of modes
 
-    const transition = (newMode, replace = false) => {
-        if (replace) setMode(newMode);
+    let newHistory = [...history]; //Use newHistory as mutating state directly is an anti-pattern
 
-        else {
-            setMode(newMode);
-            setHistory((prev) => [...prev, newMode]); //Spread previous history and newMode into history array
-        }
+    const transition = (newMode, replace = false) => {
+        if (replace) newHistory.pop();
+
+        newHistory.push(newMode) // Push new mode to end of history.
+        setHistory(newHistory); 
+        setMode(newHistory[newHistory.length - 1]); 
     }
 
     //Transition mode to the previous item in history array.
     const back = () => {
-        if (history.length > 1) history.pop(); // Only pop history if stack length is greater than 1
+        if (newHistory.length > 1) newHistory.pop(); // Only pop history if stack length is greater than 1
 
-        setMode(history[history.length - 1]); // Set mode to be the end of history array
+        setHistory(newHistory);
+        setMode(newHistory[newHistory.length - 1]);
     }
 
     return { mode, transition, back };
